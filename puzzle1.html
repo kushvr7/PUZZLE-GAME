@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Faster+One|Kaushan+Script|Londrina+Outline|Monoton&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Indie+Flower|Libre+Barcode+128+Text|Mountains+of+Christmas|Special+Elite&display=swap" rel="stylesheet">
+	<title>PUZZLE GAME</title>
+	<style>
+   body{
+   	background-color: black;
+   }
+		table{
+		position: absolute;
+		top: 200px;
+		left:480px;
+	         }
+		tr,td{
+			border:2px solid black;
+             }
+             td{
+             	width:100px;
+             	height: 100px;
+             	text-align: center;
+             	/*background-color: rgb(105,105,105);*/
+             	/*background-color: rgb(47,79,79);*/
+             	 background-color: rgb(20, 21, 18);
+             	font-size: 40px;
+             	/*font-family: 'Kaushan Script', cursive;*/
+             	/*font-family: 'Monoton', cursive;*/
+                /*font-family: 'Cabin Sketch', cursive;*/
+                /*font-family: 'Faster One', cursive;*/
+                font-family: 'Londrina Outline', cursive;
+                font-weight: bolder;
+                /*color: rgb(255,69,0);*/
+                border-radius: 15px;
+                transition: 0.5s;
+                 color:#1cc6dc;
+
+             }
+/*
+             #m00{
+             	background-image:  url("p1.png");
+             	width:100px;
+             	height:100px;
+             }
+
+             #m01{
+             	background-image:  url("p2.png");
+             	width:100px;
+             	height:100px;
+             }
+             #m02{
+             	background-image:  url("p3.png");
+             	width:100px;
+             	height:100px;
+             }
+
+             #m10{
+             	background-image:  url("p4.png");
+             	width:100px;
+             	height:100px;
+             }
+             #m11{
+             	background-image:  url("p5.png");
+             	width:100px;
+             	height:100px;
+             }
+             #m12{
+             	background-image:  url("p6.png");
+             	width:100px;
+             	height:100px;
+             }
+
+             #m20{
+             	background-image:  url("p7.png");
+             	width:100px;
+             	height:100px;
+             }
+             #m21{
+             	background-image:  url("p8.png");
+             	width:100px;
+             	height:100px;
+             }*/
+             #puz{
+             	font-family: ;
+             	font-size: 58px;
+             	color: white;
+             	position:absolute;
+             	left:430px;
+             	top:30px;
+             	/*font-family: 'Mountai ns of Christmas', cursive;*/
+/*font-family: 'Indie Flower', cursive;*/
+/*font-family: 'Special Elite', cursive;*/
+/*font-family: 'Libre Barcode 128 Text', cursive;*/
+font-family: 'Fredericka the Great', cursive;
+             }
+             td:hover{
+             	background-color: #FFA07A;
+             	color:black;
+             	font-size: 57px;
+             	/*background-color: #4c2619;*/
+             }
+            
+
+             	
+    </style>
+</head>
+<body>
+	<p id="puz">PUZZLE GAME</p>
+	<!-- <button onclick="display()">display</button> -->
+	<p style="position: absolute;top:308px;left:150px;color:white;font-size: 46px;font-family: 'Libre Barcode 128 Text', cursive;">STEPS</p>
+<div id="score" style="position: absolute;top:340px;left:250px; color: white;width:60px;height:60px;background-color:grey;border-radius:50%;text-align: center;font-size:30px;line-height:55px;"></div>
+<table>
+
+
+	<tr>
+		<td id="m00" onclick="swap(0,0)"></td>
+		<td id="m01" onclick="swap(0,1)" ></td>
+		<td id="m02" onclick="swap(0,2)" ></td>
+	</tr>
+
+	<tr>
+		<td id="m10" onclick="swap(1,0)"></td>
+		<td id="m11" onclick="swap(1,1)"></td>
+		<td id="m12" onclick="swap(1,2)"></td>
+	</tr>
+
+	<tr>
+		<td id="m20" onclick="swap(2,0)"></td>
+		<td id="m21" onclick="swap(2,1)"></td>
+		<td id="m22" onclick="swap(2,2)"></td>
+	</tr>
+
+
+</table>
+
+<audio id="slide">
+	<source src="slide.wav" type="audio/ogg">
+</audio>
+
+<script>
+	var steps = 0;
+	var x ; 
+	var tcount = 0 ;
+	var timer ; 
+	var arr = [
+
+            [],
+            [],
+            []
+
+	          ];
+	          var mus = document.getElementById("slide");
+	          function play(){
+                   mus.play();
+	          }
+
+
+	 arr[0][0] = 3 ;
+	  arr[0][1]= 7 ; 
+	  arr[0][2]= 1 ;
+	 arr[1][0] = 4 ; 
+	 arr[1][1]= 8; 
+	 arr[1][2]= 2 ;
+	 arr[2][0] = 6 ;
+	  arr[2][1]= 5 ; 
+	  arr[2][2]= 0 ;
+
+
+                    //       window.onload = function(){
+                    //     tistart();
+                    // }
+     
+
+	
+	  document.getElementById("m00").innerHTML = arr[0][0];
+	  document.getElementById("m01").innerHTML = arr[0][1];
+	  document.getElementById("m02").innerHTML = arr[0][2];
+	  document.getElementById("m10").innerHTML = arr[1][0];
+	  document.getElementById("m11").innerHTML = arr[1][1];
+	  document.getElementById("m12").innerHTML = arr[1][2]; 
+	  document.getElementById("m20").innerHTML = arr[2][0];
+	  document.getElementById("m21").innerHTML = arr[2][1];
+	  document.getElementById("m22").innerHTML = arr[2][2];       
+
+
+	  function swap(i,j){
+
+       if( (i==1 &&j==0) || (i==1 &&j==1) || (i==1 &&j==2 ))
+{
+	  	if( arr[i-1][j] == 0)    
+	  	{
+	  		 var c = arr[i][j];
+	  		  var x = arr[i][j];
+	  		 arr[i][j] = arr[i-1][j];
+	  		 arr[i-1][j] = x;  
+	  		 document.getElementById("m"+(i-1)+j).innerHTML = c;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  	      play();
+	  	      steps = steps+1;
+	  	      goal();
+
+	  	}
+	  if( arr[i+1][j] == 0 )
+	  	{
+           var c = arr[i][j];
+          var y = arr[i][j];
+	  		 arr[i][j] = arr[i+1][j];
+	  		 arr[i+1][j] = y;
+	  		 document.getElementById("m"+(i+1)+j).innerHTML = c;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+	  	}
+	  		
+	  	
+        if(  arr[i][j-1] == 0 )
+         {
+         	 var c = arr[i][j];
+	  		var z = arr[i][j];
+	  		 arr[i][j] = arr[i][j-1];
+	  		 arr[i][j-1] = z;
+	  		 document.getElementById("m"+i+(j-1)).innerHTML = c;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+	  	
+	  	}
+	  	if(   arr[i][j+1] == 0 )
+	  	 {
+	  	 	 var c = arr[i][j]; 
+	  	var	w = arr[i][j];
+	  		 arr[i][j] = arr[i][j+1];
+	  		 arr[i][j+1] = w;
+	  		 document.getElementById("m"+i+(j+1)).innerHTML = c;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+
+	  	   }
+            // var x = document.getElementById("m"+i+j).innerHTML;
+            // document.getElementById("m"+i+j).innerHTML = " ";
+}            
+ 
+       if( (i==0&&j==0) || (i==0&&j==2) || (i==2&&j==0) ||(i==2&&j==2) )
+       {
+
+        if(arr[i+1][j] == 0){
+
+        	var u = arr[i][j]; 
+	  	var	p = arr[i][j];
+	  		 arr[i][j] = arr[i+1][j];
+	  		 arr[i+1][j] = p;
+		  		 document.getElementById("m"+(i+1)+j).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+        }
+        if(arr[i][j+1]==0){
+        var u = arr[i][j]; 
+	  	var	n = arr[i][j];
+	  		 arr[i][j] = arr[i][j+1];
+	  		 arr[i][j+1] = n;
+	  		 document.getElementById("m"+i+(j+1)).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();	
+        }
+
+        if(arr[i-1][j]==0){
+          
+        var u = arr[i][j]; 
+	  	var	b = arr[i][j];
+	  		 arr[i][j] = arr[i-1][j];
+	  		 arr[i-1][j] = b;
+	  		 document.getElementById("m"+(i-1)+j).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+        
+        }
+        if(arr[i][j-1]==0){
+          
+        var u = arr[i][j]; 
+	  	var	v = arr[i][j];
+	  		 arr[i][j] = arr[i][j-1];
+	  		 arr[i][j-1] = v;
+	  		 document.getElementById("m"+i+(j-1)).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+        
+        }
+
+       
+
+       }
+
+       if((i==0&&j==1)||(i==2&&j==1)){
+
+    
+         if(arr[i][j-1]==0){
+
+        var u = arr[i][j]; 
+	  	var	m = arr[i][j];
+	  		 arr[i][j] = arr[i][j-1];
+	  		 arr[i][j-1] = m;
+	  		 document.getElementById("m"+i+(j-1)).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal(); 	
+         }  
+         
+         if(arr[i][j+1]==0){
+
+        var u = arr[i][j]; 
+	  	var	s = arr[i][j];
+	  		 arr[i][j] = arr[i][j+1];
+	  		 arr[i][j+1] = s;
+	  		 document.getElementById("m"+i+(j+1)).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+         }
+
+
+      if(arr[i-1][j]==0){
+      	var u = arr[i][j]; 
+	  	var	sa = arr[i][j];
+	  		 arr[i][j] = arr[i-1][j];
+	  		 arr[i-1][j] = sa;
+	  		 document.getElementById("m"+(i-1)+j).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0;
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();
+      }
+
+         if(arr[i+1][j]==0){
+
+        var u = arr[i][j]; 
+	  	var	hj = arr[i][j];
+	  		 arr[i][j] = arr[i+1][j];
+	  		 arr[i+1][j] = hj;
+	  		 document.getElementById("m"+(i+1)+j).innerHTML = u;
+	  		 document.getElementById("m"+i+j).innerHTML = 0; 
+	  		 play();
+	  		 steps = steps+1;
+	  		 goal();	
+         }
+
+
+       }
+
+
+ }
+
+   
+       //          function tistart()
+       //                 {
+       // timer = setInterval(main,1000);
+       //                 }
+       //          function main(){
+
+       //     tcount = tcount+1;
+       //     document.getElementById("tmb").innerHTML= tcount;
+       //     }
+
+       function goal(){
+   document.getElementById("score").innerHTML = steps;
+                       }                 
+
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
