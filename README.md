@@ -22,3 +22,16 @@ On hover : <ul><li>the font-size changes</li>
   
  ![Screenshot (110)](https://user-images.githubusercontent.com/47947329/61145105-757c4a80-a48b-11e9-87c0-328f14006281.png)
   
+The steps board is represented in the following pictures 
+<b>First step :</b>![Screenshot (111)](https://user-images.githubusercontent.com/47947329/61145108-77460e00-a48b-11e9-9a9c-cea98f2e3bee.png)
+
+The further steps taken in the game just to show the steps taken <b>further steps</b> 
+![Screenshot (117)](https://user-images.githubusercontent.com/47947329/61146991-2d135b80-a490-11e9-96da-44dfc043eb9b.png)
+
+## AUDIO-EFFECT 
+
+Audio effect is also added in the game i.e <b><i>sliding metal</i></b>
+The audio comes into play when the tiles are swapped with respect to the norms of the game .
+<b>The code(function) which makes the desired sound is provided below </b>
+
+![Screenshot (114)](https://user-images.githubusercontent.com/47947329/61145115-79a86800-a48b-11e9-942f-5ac203b595e1.png)
